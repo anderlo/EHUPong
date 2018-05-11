@@ -23,9 +23,9 @@ public class Pong implements ActionListener, KeyListener
 
 	public Renderer renderer;
 
-	public Paddle player1;
+	public Pala pala1;
 
-	public Paddle player2;
+	public Pala pala2;
 
 	public Ball ball;
 
@@ -33,7 +33,7 @@ public class Pong implements ActionListener, KeyListener
 
 	public boolean w, s, up, down;
 
-	public int gameStatus = 0, scoreLimit = 7, playerWon; //0 = Menu, 1 = Paused, 2 = Playing, 3 = Over
+	public int gameStatus = 0, scoreLimit = 7, palaWon; //0 = Menu, 1 = Paused, 2 = Playing, 3 = Over
 
 	public int botDifficulty, botMoves, botCooldown = 0;
 
@@ -62,43 +62,43 @@ public class Pong implements ActionListener, KeyListener
 	public void start()
 	{
 		gameStatus = 2;
-		player1 = new Paddle(this, 1);
-		player2 = new Paddle(this, 2);
+		pala1 = new Pala(this, 1);
+		pala2 = new Pala(this, 2);
 		ball = new Ball(this);
 	}
 
 	public void update()
 	{
-		if (player1.score >= scoreLimit)
+		if (pala1.score >= scoreLimit)
 		{
-			playerWon = 1;
+			palaWon = 1;
 			gameStatus = 3;
 		}
 
-		if (player2.score >= scoreLimit)
+		if (pala2.score >= scoreLimit)
 		{
 			gameStatus = 3;
-			playerWon = 2;
+			palaWon = 2;
 		}
 
 		if (w)
 		{
-			player1.move(true);
+			pala1.move(true);
 		}
 		if (s)
 		{
-			player1.move(false);
+			pala1.move(false);
 		}
 
 		if (!bot)
 		{
 			if (up)
 			{
-				player2.move(true);
+				pala2.move(true);
 			}
 			if (down)
 			{
-				player2.move(false);
+				pala2.move(false);
 			}
 		}
 		else
@@ -115,15 +115,15 @@ public class Pong implements ActionListener, KeyListener
 
 			if (botMoves < 10)
 			{
-				if (player2.y + player2.height / 2 < ball.y)
+				if (pala2.y + pala2.height / 2 < ball.y)
 				{
-					player2.move(false);
+					pala2.move(false);
 					botMoves++;
 				}
 
-				if (player2.y + player2.height / 2 > ball.y)
+				if (pala2.y + pala2.height / 2 > ball.y)
 				{
-					player2.move(true);
+					pala2.move(true);
 					botMoves++;
 				}
 
@@ -142,7 +142,7 @@ public class Pong implements ActionListener, KeyListener
 			}
 		}
 
-		ball.update(player1, player2);
+		ball.update(pala1, pala2);
 	}
 
 	public void render(Graphics2D g)
@@ -199,11 +199,11 @@ public class Pong implements ActionListener, KeyListener
 
 			g.setFont(new Font("Arial", 1, 50));
 
-			g.drawString(String.valueOf(player1.score), width / 2 - 90, 50);
-			g.drawString(String.valueOf(player2.score), width / 2 + 65, 50);
+			g.drawString(String.valueOf(pala1.score), width / 2 - 90, 50);
+			g.drawString(String.valueOf(pala2.score), width / 2 + 65, 50);
 
-			player1.render(g);
-			player2.render(g);
+			pala1.render(g);
+			pala2.render(g);
 			ball.render(g);
 		}
 
@@ -214,13 +214,13 @@ public class Pong implements ActionListener, KeyListener
 
 			g.drawString("PONG", width / 2 - 75, 50);
 
-			if (bot && playerWon == 2)
+			if (bot && palaWon == 2)
 			{
 				g.drawString("The Bot Wins!", width / 2 - 170, 200);
 			}
 			else
 			{
-				g.drawString("Player " + playerWon + " Wins!", width / 2 - 165, 200);
+				g.drawString("pala " + palaWon + " Wins!", width / 2 - 165, 200);
 			}
 
 			g.setFont(new Font("Arial", 1, 30));

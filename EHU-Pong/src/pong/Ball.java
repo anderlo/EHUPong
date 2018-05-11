@@ -9,7 +9,7 @@ public class Ball
 
 	public int x, y, width = 25, height = 25;
 
-	public int motionX, motionY;
+	public int motionX, motionY; // Direccion de la bola. Pero, aumenta el numero para aumentar la velocidad.
 
 	public Random random;
 
@@ -26,11 +26,12 @@ public class Ball
 		spawn();
 	}
 
-	public void update(Paddle paddle1, Paddle paddle2)
+	public void update(Pala paddle1, Pala paddle2)
 	{
 		int speed = 5;
 
 		this.x += motionX * speed;
+		//System.out.println("Motion: y = " + motionY + " ,  x = " + motionX);
 		this.y += motionY * speed;
 
 		if (this.y + height - motionY > pong.height || this.y + motionY < 0)
@@ -117,13 +118,13 @@ public class Ball
 		}
 	}
 
-	public int checkCollision(Paddle paddle)
+	public int checkCollision(Pala paddle)
 	{
 		if (this.x < paddle.x + paddle.width && this.x + width > paddle.x && this.y < paddle.y + paddle.height && this.y + height > paddle.y)
 		{
 			return 1; //bounce
 		}
-		else if ((paddle.x > x && paddle.paddleNumber == 1) || (paddle.x < x - width && paddle.paddleNumber == 2))
+		else if ((paddle.x > x && paddle.palaZnbk == 1) || (paddle.x < x - width && paddle.palaZnbk == 2))
 		{
 			return 2; //score
 		}

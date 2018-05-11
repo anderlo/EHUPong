@@ -3,25 +3,25 @@ package pong;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Paddle
+public class Pala
 {
 
-	public int paddleNumber;
+	public int palaZnbk;
 
 	public int x, y, width = 50, height = 250;
 
 	public int score;
 
-	public Paddle(Pong pong, int paddleNumber)
+	public Pala(Pong pong, int palaZnbk)
 	{
-		this.paddleNumber = paddleNumber;
+		this.palaZnbk = palaZnbk;
 
-		if (paddleNumber == 1)
+		if (palaZnbk == 1)
 		{
 			this.x = 0;
 		}
 
-		if (paddleNumber == 2)
+		if (palaZnbk == 2)
 		{
 			this.x = pong.width - width;
 		}
