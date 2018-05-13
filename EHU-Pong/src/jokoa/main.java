@@ -1,5 +1,22 @@
 package jokoa;
 
+import java.sql.Time;
+
+import db.hepler.DBKud;
+import info.helper.MatchInfo;
+
 public class main {
 
+	
+	public static void main(String[] args)
+	{
+		Time time = new Time(0,2,3);
+		System.out.println(time.toString());
+		
+		DBKud dbk = new DBKud();
+		MatchInfo mI = new MatchInfo(0, "Me", "2-3", "AI", time);
+		dbk.insertMatchInfo(mI);
+		
+	}
+	
 }
