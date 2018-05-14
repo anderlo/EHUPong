@@ -50,4 +50,39 @@ public class DBKud {
 		
 	}
 	
+	public ArrayList<MatchInfo> getRanking (int rankLength){
+		
+		ArrayList<MatchInfo> result = new ArrayList<MatchInfo>();
+		
+		try {
+			Statement st = conn.createStatement();
+			String query = "Select * from ehupong.match order by time asc limit " + rankLength;
+			
+			ResultSet rs= st.executeQuery(query);
+			
+			while(rs.next()) {
+				
+				int matchId = rs.getInt(1);
+				String playerName = rs.getString(2);
+				String mResult = rs.getString(3);
+				String winner = rs.getString(4);
+				Time time = rs.getTime(5);
+				
+				MatchInfo mi = new MatchInfo(matchId, playerName, mResult, winner, time);
+				
+				result.add(mi);
+				
+			}
+			
+		}
+		catch(Exception e) {
+			
+			System.out.println("Exception on 'DBKud.getRanking': " + e);
+		}
+		
+		return result;
+		
+	}
+	
+	
 }

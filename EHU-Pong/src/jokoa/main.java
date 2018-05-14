@@ -1,6 +1,7 @@
 package jokoa;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import db.hepler.DBKud;
 import info.helper.MatchInfo;
@@ -15,7 +16,16 @@ public class main {
 		
 		DBKud dbk = new DBKud();
 		MatchInfo mI = new MatchInfo(0, "Me", "2-3", "AI", time);
-		dbk.insertMatchInfo(mI);
+		//dbk.insertMatchInfo(mI);
+		
+		ArrayList<MatchInfo> ranking = dbk.getRanking(3);
+		int i=1;
+		for(MatchInfo match : ranking) {
+			
+			System.out.println("Match " + i + " info: " + match.toString());
+			i++;
+		}
+		
 		
 	}
 	

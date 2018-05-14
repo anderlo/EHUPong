@@ -24,5 +24,11 @@ public class MatchInfo {
 		return "( 0,'" + playerName + "', '" + result + "', '" + winner + "', '" + time +"');";
 		
 	}
+
+	@Override
+	public String toString() {
+		return "MatchInfo [matchId=" + matchId + ", playerName=" + playerName + ", result=" + result + ", winner="
+				+ winner + ", time=" + time + "]";
+	}
 	
 }
