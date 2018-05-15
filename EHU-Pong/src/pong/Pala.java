@@ -3,8 +3,7 @@ package pong;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Pala
-{
+public class Pala{
 
 	public int palaZnbk;
 
@@ -12,55 +11,31 @@ public class Pala
 
 	public int score;
 
-	public Pala(Pong pong, int palaZnbk)
-	{
+	public Pala(Pong pong, int palaZnbk){
 		this.palaZnbk = palaZnbk;
 
-		if (palaZnbk == 1)
-		{
-			this.x = 0;
-		}
-
-		if (palaZnbk == 2)
-		{
-			this.x = pong.width - width;
-		}
-
+		score =0;
+		System.out.println("Pala " + palaZnbk + " score: " + score);
+		if (palaZnbk == 1)	this.x = 0;
+		else if (palaZnbk == 2)		this.x = pong.width - width;
 		this.y = pong.height / 2 - this.height / 2;
 	}
 
-	public void render(Graphics g)
-	{
+	public void render(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillRect(x, y, width, height);
 	}
 
-	public void move(boolean up)
-	{
+	public void move(boolean up){
 		int speed = 15;
 
-		if (up)
-		{
-			if (y - speed > 0)
-			{
-				y -= speed;
-			}
-			else
-			{
-				y = 0;
-			}
+		if (up){
+			if (y - speed > 0)	y -= speed;
+			else	y = 0;
 		}
-		else
-		{
-			if (y + height + speed < Pong.pong.height)
-			{
-				y += speed;
-			}
-			else
-			{
-				y = Pong.pong.height - height;
-			}
+		else{
+			if (y + height + speed < Pong.getInstance().height)	y += speed;
+			else	y = Pong.getInstance().height - height;
 		}
 	}
-
 }

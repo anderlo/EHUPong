@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import db.hepler.DBKud;
 import info.helper.MatchInfo;
+import pong.Pong;
 
 public class main {
 
 	
-	public static void main(String[] args)
-	{
+	public static void main(String[] args){
 		Time time = new Time(0,2,3);
 		System.out.println(time.toString());
 		
@@ -22,10 +22,13 @@ public class main {
 		int i=1;
 		for(MatchInfo match : ranking) {
 			
-			System.out.println("Match " + i + " info: " + match.toString());
+			//System.out.println("Match " + i + " info: " + match.toString());
 			i++;
 		}
 		
+		System.out.println("Main ");
+		
+		Pong pong = Pong.getInstance();
 		
 	}
 	

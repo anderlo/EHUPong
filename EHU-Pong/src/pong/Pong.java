@@ -14,10 +14,8 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Pong implements ActionListener, KeyListener
-{
+public class Pong implements ActionListener, KeyListener{
 
-	public static Pong pong;
 
 	public int width = 700, height = 700;
 
@@ -33,7 +31,7 @@ public class Pong implements ActionListener, KeyListener
 
 	public boolean w, s, up, down;
 
-	public int gameStatus = 0, scoreLimit = 7, palaWon; //0 = Menu, 1 = Paused, 2 = Playing, 3 = Over
+	public int gameStatus = 2, scoreLimit = 7, palaWon; //0 = Menu, 1 = Paused, 2 = Playing, 3 = Over
 
 	public int botDifficulty, botMoves, botCooldown = 0;
 
@@ -41,152 +39,104 @@ public class Pong implements ActionListener, KeyListener
 
 	public JFrame jframe;
 
-	public Pong()
-	{
+	private static Pong instance;
+	
+	private Pong(){
+		System.out.println("Entered Pong Constructor");
 		Timer timer = new Timer(20, this);
 		random = new Random();
 
+		System.out.println("Before JFrame Creation");
+		
 		jframe = new JFrame("Pong");
 
+		System.out.println("After JFrame Creation. Before Rendered Creation");
+		
 		renderer = new Renderer();
 
+		System.out.println("After Renderer Creation");
+		
 		jframe.setSize(width + 15, height + 35);
 		jframe.setVisible(true);
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.add(renderer);
 		jframe.addKeyListener(this);
 
+		start();
+		
 		timer.start();
+		System.out.println("After Timer Start");
 	}
 
-	public void start()
-	{
+	public static Pong getInstance() {
+		if(instance==null) {
+			instance = new Pong();
+		}
+		return instance;
+	}
+	
+	
+	public void start(){
+		System.out.println("Entered Start");
 		gameStatus = 2;
 		pala1 = new Pala(this, 1);
 		pala2 = new Pala(this, 2);
 		ball = new Ball(this);
+		
+		System.out.println("Exited Start");
 	}
 
-	public void update()
-	{
-		if (pala1.score >= scoreLimit)
-		{
+	public void update(){
+		System.out.println("Entered Update");
+		if (pala1.score >= scoreLimit){
 			palaWon = 1;
 			gameStatus = 3;
 		}
 
-		if (pala2.score >= scoreLimit)
-		{
+		if (pala2.score >= scoreLimit){
 			gameStatus = 3;
 			palaWon = 2;
 		}
 
-		if (w)
-		{
-			pala1.move(true);
-		}
-		if (s)
-		{
-			pala1.move(false);
-		}
+		if (w)	pala1.move(true);
+		if (s)	pala1.move(false);
 
-		if (!bot)
-		{
-			if (up)
-			{
-				pala2.move(true);
-			}
-			if (down)
-			{
-				pala2.move(false);
-			}
+		if (!bot){
+			if (up)		pala2.move(true);
+			if (down)	pala2.move(false);
 		}
-		else
-		{
-			if (botCooldown > 0)
-			{
+		else{
+			if (botCooldown > 0){
 				botCooldown--;
 
-				if (botCooldown == 0)
-				{
-					botMoves = 0;
-				}
+				if (botCooldown == 0)	botMoves = 0;
 			}
 
-			if (botMoves < 10)
-			{
-				if (pala2.y + pala2.height / 2 < ball.y)
-				{
+			if (botMoves < 10){
+				if (pala2.y + pala2.height / 2 < ball.y){
 					pala2.move(false);
 					botMoves++;
 				}
 
-				if (pala2.y + pala2.height / 2 > ball.y)
-				{
+				if (pala2.y + pala2.height / 2 > ball.y){
 					pala2.move(true);
 					botMoves++;
 				}
 
-				if (botDifficulty == 0)
-				{
-					botCooldown = 20;
-				}
-				if (botDifficulty == 1)
-				{
-					botCooldown = 15;
-				}
-				if (botDifficulty == 2)
-				{
-					botCooldown = 10;
-				}
+				if (botDifficulty == 0)	botCooldown = 30;
+				else if (botDifficulty == 1)	botCooldown = 20;
+				else if (botDifficulty == 2)	botCooldown = 10;
 			}
 		}
-
 		ball.update(pala1, pala2);
 	}
 
-	public void render(Graphics2D g)
-	{
+	public void render(Graphics2D g){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width, height);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		if (gameStatus == 0)
-		{
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", 1, 50));
-
-			g.drawString("PONG", width / 2 - 75, 50);
-
-			if (!selectingDifficulty)
-			{
-				g.setFont(new Font("Arial", 1, 30));
-
-				g.drawString("Press Space to Play", width / 2 - 150, height / 2 - 25);
-				g.drawString("Press Shift to Play with Bot", width / 2 - 200, height / 2 + 25);
-				g.drawString("<< Score Limit: " + scoreLimit + " >>", width / 2 - 150, height / 2 + 75);
-			}
-		}
-
-		if (selectingDifficulty)
-		{
-			String string = botDifficulty == 0 ? "Easy" : (botDifficulty == 1 ? "Medium" : "Hard");
-
-			g.setFont(new Font("Arial", 1, 30));
-
-			g.drawString("<< Bot Difficulty: " + string + " >>", width / 2 - 180, height / 2 - 25);
-			g.drawString("Press Space to Play", width / 2 - 150, height / 2 + 25);
-		}
-
-		if (gameStatus == 1)
-		{
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", 1, 50));
-			g.drawString("PAUSED", width / 2 - 103, height / 2 - 25);
-		}
-
-		if (gameStatus == 1 || gameStatus == 2)
-		{
+		if (gameStatus == 1 || gameStatus == 2){
 			g.setColor(Color.WHITE);
 
 			g.setStroke(new BasicStroke(5f));
@@ -206,164 +156,96 @@ public class Pong implements ActionListener, KeyListener
 			pala2.render(g);
 			ball.render(g);
 		}
-
-		if (gameStatus == 3)
-		{
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", 1, 50));
-
-			g.drawString("PONG", width / 2 - 75, 50);
-
-			if (bot && palaWon == 2)
-			{
-				g.drawString("The Bot Wins!", width / 2 - 170, 200);
-			}
-			else
-			{
-				g.drawString("pala " + palaWon + " Wins!", width / 2 - 165, 200);
-			}
-
-			g.setFont(new Font("Arial", 1, 30));
-
-			g.drawString("Press Space to Play Again", width / 2 - 185, height / 2 - 25);
-			g.drawString("Press ESC for Menu", width / 2 - 140, height / 2 + 25);
-		}
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (gameStatus == 2)
-		{
+	public void actionPerformed(ActionEvent e){
+		if (gameStatus == 2) {
+			
 			update();
 		}
-
 		renderer.repaint();
 	}
 
-	public static void main(String[] args)
-	{
-		pong = new Pong();
-	}
-
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e){
 		int id = e.getKeyCode();
 
-		if (id == KeyEvent.VK_W)
-		{
+		if (id == KeyEvent.VK_W) {
 			w = true;
 		}
-		else if (id == KeyEvent.VK_S)
-		{
+		else if (id == KeyEvent.VK_S) {
 			s = true;
 		}
-		else if (id == KeyEvent.VK_UP)
-		{
+		else if (id == KeyEvent.VK_UP) {
 			up = true;
 		}
-		else if (id == KeyEvent.VK_DOWN)
-		{
+		else if (id == KeyEvent.VK_DOWN) {
 			down = true;
 		}
-		else if (id == KeyEvent.VK_RIGHT)
-		{
+		else if (id == KeyEvent.VK_RIGHT){
 			if (selectingDifficulty)
 			{
-				if (botDifficulty < 2)
-				{
+				if (botDifficulty < 2) {
 					botDifficulty++;
 				}
-				else
-				{
+				else {
 					botDifficulty = 0;
 				}
 			}
-			else if (gameStatus == 0)
-			{
+			else if (gameStatus == 0) {
 				scoreLimit++;
 			}
 		}
-		else if (id == KeyEvent.VK_LEFT)
-		{
-			if (selectingDifficulty)
-			{
-				if (botDifficulty > 0)
-				{
-					botDifficulty--;
-				}
-				else
-				{
-					botDifficulty = 2;
-				}
+		else if (id == KeyEvent.VK_LEFT){
+			if (selectingDifficulty){
+				if (botDifficulty > 0)	botDifficulty--;
+				else					botDifficulty = 2;
 			}
-			else if (gameStatus == 0 && scoreLimit > 1)
-			{
-				scoreLimit--;
-			}
+			else if (gameStatus == 0 && scoreLimit > 1)	scoreLimit--;
 		}
-		else if (id == KeyEvent.VK_ESCAPE && (gameStatus == 2 || gameStatus == 3))
-		{
-			gameStatus = 0;
-		}
-		else if (id == KeyEvent.VK_SHIFT && gameStatus == 0)
-		{
+		else if (id == KeyEvent.VK_ESCAPE && (gameStatus == 2 || gameStatus == 3))	gameStatus = 0;
+		else if (id == KeyEvent.VK_SHIFT && gameStatus == 0){
 			bot = true;
 			selectingDifficulty = true;
 		}
-		else if (id == KeyEvent.VK_SPACE)
-		{
-			if (gameStatus == 0 || gameStatus == 3)
-			{
-				if (!selectingDifficulty)
-				{
-					bot = false;
-				}
-				else
-				{
+		else if (id == KeyEvent.VK_SPACE){
+			if (gameStatus == 0 || gameStatus == 3){
+				if(selectingDifficulty) {
 					selectingDifficulty = false;
 				}
-
 				start();
 			}
-			else if (gameStatus == 1)
-			{
+			else if (gameStatus == 1) {
 				gameStatus = 2;
 			}
-			else if (gameStatus == 2)
-			{
+			else if (gameStatus == 2) {
 				gameStatus = 1;
 			}
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e){
 		int id = e.getKeyCode();
 
-		if (id == KeyEvent.VK_W)
-		{
-			w = false;
-		}
-		else if (id == KeyEvent.VK_S)
-		{
-			s = false;
-		}
-		else if (id == KeyEvent.VK_UP)
-		{
-			up = false;
-		}
-		else if (id == KeyEvent.VK_DOWN)
-		{
-			down = false;
-		}
+		if (id == KeyEvent.VK_W)	w = false;
+
+		else if (id == KeyEvent.VK_S)	s = false;
+		else if (id == KeyEvent.VK_UP)	up = false;
+		else if (id == KeyEvent.VK_DOWN)	down = false;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e){
 
 	}
+	
+	
+	public static void main(String[] args){
+		
+	}
+
+	
+	
 }
