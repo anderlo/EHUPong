@@ -11,20 +11,17 @@ public class Ball{
 	public int motionX, motionY; // Direccion de la bola.
 
 	private Pong pong;
-
-	public int amountOfHits;
-
+	
 	public Ball(Pong pong){
 		this.pong = pong;
 		spawn();
 	}
 
 	public void update(Pala paddle1, Pala paddle2){
-		int speed = 5;
 
-		this.x += motionX * speed;
+		this.x += motionX * 5;
 		//System.out.println("Motion: y = " + motionY + " ,  x = " + motionX);
-		this.y += motionY * speed;
+		this.y += motionY * 5;
 
 		if (this.y + height - motionY > pong.height || this.y + motionY < 0){
 			if (this.motionY < 0){
@@ -38,32 +35,27 @@ public class Ball{
 		}
 
 		if (checkCollision(paddle1) == 1){
-			this.motionX = 1 + (amountOfHits / 5);
-			amountOfHits++;
+			this.motionX = 1;
 		}
 		
 		else if (checkCollision(paddle2) == 1){
-			this.motionX = -1 - (amountOfHits / 5);
-			amountOfHits++;
+			this.motionX = -1;
 		}
 
 		if (checkCollision(paddle1) == 2){
 			paddle2.score++;
 			this.x = paddle1.x;
-			this.amountOfHits = 0;
 			motionX = 1;
 		}
 		else if (checkCollision(paddle2) == 2){
 			paddle1.score++;
 			this.x = paddle2.x;
-			this.amountOfHits = 0;
 			motionX = -1;
 		}
 	}
 
 	public void spawn(){
 		Random random = new Random();
-		this.amountOfHits = 0;
 		this.x = pong.width / 2 - this.width / 2;
 		this.y = pong.height / 2 - this.height / 2;
 
