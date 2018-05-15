@@ -12,6 +12,8 @@ public class Ball{
 
 	private Pong pong;
 	
+	private int speed = 6;
+	
 	public Ball(Pong pong){
 		this.pong = pong;
 		spawn();
@@ -19,38 +21,44 @@ public class Ball{
 
 	public void update(Pala paddle1, Pala paddle2){
 
-		this.x += motionX * 5;
+		this.x += motionX * speed;
 		//System.out.println("Motion: y = " + motionY + " ,  x = " + motionX);
-		this.y += motionY * 5;
+		this.y += motionY * speed;
 
 		if (this.y + height - motionY > pong.height || this.y + motionY < 0){
 			if (this.motionY < 0){
 				this.motionY = 1;
 				this.y = 0;
+				speed = 6;
 			}
 			else{
 				this.motionY = -1;
 				this.y = pong.height - height;
+				speed = 6;
 			}
 		}
 
 		if (checkCollision(paddle1) == 1){
 			this.motionX = 1;
+			speed = 6;
 		}
 		
 		else if (checkCollision(paddle2) == 1){
 			this.motionX = -1;
+			speed = 6;
 		}
 
-		if (checkCollision(paddle1) == 2){
+		else if (checkCollision(paddle1) == 2){
 			paddle2.score++;
 			this.x = paddle1.x;
 			motionX = 1;
+			speed = 6;
 		}
 		else if (checkCollision(paddle2) == 2){
 			paddle1.score++;
 			this.x = paddle2.x;
 			motionX = -1;
+			speed = 6;
 		}
 	}
 
