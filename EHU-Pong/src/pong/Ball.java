@@ -12,10 +12,9 @@ public class Ball{
 
 	private Pong pong;
 
-	public int amountOfHits;
 
-	public Ball(Pong pong){
-		this.pong = pong;
+	public Ball(){
+		pong = Pong.getInstance();
 		spawn();
 	}
 
@@ -38,32 +37,27 @@ public class Ball{
 		}
 
 		if (checkCollision(paddle1) == 1){
-			this.motionX = 1 + (amountOfHits / 5);
-			amountOfHits++;
+			this.motionX = 1;
 		}
 		
 		else if (checkCollision(paddle2) == 1){
-			this.motionX = -1 - (amountOfHits / 5);
-			amountOfHits++;
+			this.motionX = -1;
 		}
 
 		if (checkCollision(paddle1) == 2){
 			paddle2.score++;
 			this.x = paddle1.x;
-			this.amountOfHits = 0;
 			motionX = 1;
 		}
 		else if (checkCollision(paddle2) == 2){
 			paddle1.score++;
 			this.x = paddle2.x;
-			this.amountOfHits = 0;
 			motionX = -1;
 		}
 	}
 
 	public void spawn(){
 		Random random = new Random();
-		this.amountOfHits = 0;
 		this.x = pong.width / 2 - this.width / 2;
 		this.y = pong.height / 2 - this.height / 2;
 

@@ -11,9 +11,10 @@ public class Pala{
 
 	public int score;
 
-	public Pala(Pong pong, int palaZnbk){
+	public Pala( int palaZnbk){
 		this.palaZnbk = palaZnbk;
 
+		Pong pong = Pong.getInstance();
 		score =0;
 		System.out.println("Pala " + palaZnbk + " score: " + score);
 		if (palaZnbk == 1)	this.x = 0;
