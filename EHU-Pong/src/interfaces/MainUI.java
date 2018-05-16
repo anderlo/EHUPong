@@ -64,7 +64,7 @@ public class MainUI extends JFrame {
 		btnPvp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Pong.getInstance(3, -1);
+				Pong.getInstance(7, -1);
 				dispose();
 			}
 		});
@@ -77,7 +77,7 @@ public class MainUI extends JFrame {
 		btnia1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Pong.getInstance(3, 0);
+				Pong.getInstance(7, 0);
 				dispose();
 			}
 		});
@@ -88,7 +88,7 @@ public class MainUI extends JFrame {
 		btnia2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Pong.getInstance(3, 1);
+				Pong.getInstance(7, 1);
 				dispose();
 				
 			}
