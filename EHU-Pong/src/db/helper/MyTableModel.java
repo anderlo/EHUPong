@@ -14,32 +14,20 @@ public class MyTableModel extends AbstractTableModel {
 		this.kargatu();
 	}
 	private void kargatu() {
-		// TODO Auto-generated method stub
 		this.hasieratuZutabeIzenak();
 		
 	
 	}
 	public int getRowCount() {
+		
 		return data.size();
 	}
 	public Class<?> getColumnClass(int col){
-		if(col==0) {
-			return String.class;
-		}
-		else if(col==1||col==2) {
-			return Float.class;
-		}else {
-			return String.class;
-		}
-		
+		return RankingInfo.getColumnClass(col);	
 		
 	}
 	public boolean isCellEditable(int row, int col) { 
-        //if(col==0||col==1||col==3||col==4) {
-		//return true;
-        //}else {
-        	return false;
-        	// }   
+        	return false;   
     }
 	
 	public int getColumnCount() {
@@ -55,10 +43,10 @@ public class MyTableModel extends AbstractTableModel {
 
 
 	public void hasieratuZutabeIzenak() {
-		this.columnNames.add(0,	Textua.getT().textuaLortu("izena"));
-		this.columnNames.add(1,	Textua.getT().textuaLortu("puntuak"));
-		this.columnNames.add(2, 	Textua.getT().textuaLortu("irabazlea"));
-		this.columnNames.add(3, 	Textua.getT().textuaLortu("denbora"));
+		this.columnNames.add(0,	Textua.getT().textuaLortu("column1"));
+		this.columnNames.add(1,	Textua.getT().textuaLortu("column2"));
+		this.columnNames.add(2, Textua.getT().textuaLortu("column3"));
+		this.columnNames.add(3, Textua.getT().textuaLortu("column4"));
 	}
 	
 	public void gehitu(RankingInfo ri) {

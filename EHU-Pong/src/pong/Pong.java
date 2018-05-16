@@ -57,7 +57,7 @@ public class Pong implements ActionListener, KeyListener{
 		sw = new Stopwatch();
 		
 		timer1 = new Timer(20, this);
-		timer2 = new Timer(20000, ObstacleManager.getInstance());
+		timer2 = new Timer(10000, ObstacleManager.getInstance());
 
 		System.out.println("Before JFrame Creation");
 		
@@ -257,8 +257,13 @@ public class Pong implements ActionListener, KeyListener{
 			pala1.render(g);
 			pala2.render(g);
 			ball.render(g);
+			ObstacleManager obs = ObstacleManager.getInstance();
+			for (int i=0; i < obs.getNumObstacles(); i++){
+				obs.getObstacle(i).render(g);
+			}
 		}
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e){

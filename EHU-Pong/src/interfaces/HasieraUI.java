@@ -62,26 +62,5 @@ public class HasieraUI extends JFrame {
 			}
 		});
 		contentPane.add(btnPong);
-		/*
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1200, 520);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JButton btnJokatu = new JButton("Play");
-		btnJokatu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				LanguageUI.main(null);
-				dispose();
-			}
-		});
-		btnJokatu.setBounds(540, 400, 120, 30);
-		panel.add(btnJokatu);
-		
-		JLabel lblArgazkia = new JLabel(image);
-		lblArgazkia.setBounds(0, 0, 1200, 520);
-		panel.add(lblArgazkia);
-		*/
 	}
 }

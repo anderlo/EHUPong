@@ -27,6 +27,7 @@ public class ObstacleManager implements ActionListener{
 	private void addObstacle() {
 		if (numObstacles<3) {
 			System.out.println("Obstacle Added");
+			obstacleList.add(createObstacle());
 			numObstacles++;
 		}
 		else {
@@ -37,10 +38,32 @@ public class ObstacleManager implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("20 seconds");
+		System.out.println("10 seconds");
 		addObstacle();
 	}
 	
+	public int getNumObstacles(){
+		return this.numObstacles;
+	}
 	
+	public Obstacle getObstacle(int pAux){
+		return this.obstacleList.get(pAux);
+	}
+	
+	public void obstacleHitted(Obstacle obs){
+		this.obstacleList.remove(obs);
+		--this.numObstacles;
+	}
+	
+	public Obstacle createObstacle(){
+		Random rnd = new Random();
+		int aux = rnd.nextInt(3);
+		Obstacle obs;
+		if (aux == 0)			obs = new Obstacle(rnd.nextInt(500) + 100, rnd.nextInt(500) + 100, "wall");
+		else if (aux == 1) 		obs = new Obstacle(rnd.nextInt(500) + 100, rnd.nextInt(500) + 100, "speedUp");
+		else 					obs = new Obstacle(rnd.nextInt(500) + 100, rnd.nextInt(500) + 100, "slow");
+		return obs;
+
+	}
 	
 }

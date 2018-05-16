@@ -13,6 +13,8 @@ public class Ball{
 	private Pong pong;
 
 	private int speed = 6;
+	
+	private ObstacleManager obstacles = ObstacleManager.getInstance();
 
 	public Ball(){
 		pong = Pong.getInstance();
@@ -84,13 +86,33 @@ public class Ball{
 			return 2; //score
 		}
 		else {
-			return 0; //nothing
+			for (int i=0; i<this.obstacles.getNumObstacles(); i++){
+				if (obstacles.getObstacle(i).getX()+obstacles.getObstacle(i).width > x && obstacles.getObstacle(i).getX() < x
+						&& obstacles.getObstacle(i).getY() < y && obstacles.getObstacle(i).getY()+obstacles.getObstacle(i).height > y){
+					
+					hitObstacle(obstacles.getObstacle(i));
+				}
+			}
+			return 0; //nothing or obstacle hitted
 		}
 	}
 
 	public void render(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillOval(x, y, width, height);
+	}
+	
+	public void hitObstacle(Obstacle obs){
+		if (obs.getType().equals("speedUp")){
+			this.speed *= 2;
+		}
+		else if (obs.getType().equals("slow")){
+			this.speed /= 2;
+		}
+		else if (obs.getType().equals("wall")){
+			motionX *= -1;
+		}
+		obstacles.obstacleHitted(obs);
 	}
 
 }

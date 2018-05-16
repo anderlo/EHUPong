@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import db.helper.*;
 import info.helper.RankingInfo;
 import languages.Textua;
+import pong.Pong;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -49,7 +50,9 @@ public class MainUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DBKud kud = new DBKud();
 				Vector<RankingInfo> aux = kud.getRanking(10);
+				
 				MyTableModel mtm = new MyTableModel(aux);
+				
 				RankingUI RankingUi = new RankingUI(mtm);
 				dispose();
 			}
@@ -58,15 +61,38 @@ public class MainUI extends JFrame {
 		panel.add(btnRanking);
 		
 		JButton btnPvp = new JButton(texto2);
+		btnPvp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Pong.getInstance(3, -1);
+				dispose();
+			}
+		});
+		
 		btnPvp.setBounds(980, 10, 200, 100);
 		panel.add(btnPvp);
 		
 		JButton btnia1 = new JButton(texto3);
 		btnia1.setBounds(10, 380, 200, 100);
+		btnia1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Pong.getInstance(3, 0);
+				dispose();
+			}
+		});
 		panel.add(btnia1);
 		
 		JButton btnia2 = new JButton(texto4);
 		btnia2.setBounds(980, 380, 200, 100);
+		btnia2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Pong.getInstance(3, 1);
+				dispose();
+				
+			}
+		});
 		panel.add(btnia2);
 		//670 dibujo ancho ,  270 alto 
 		

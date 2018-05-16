@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import db.helper.MyTableModel;
 import info.helper.MatchInfo;
+import languages.Textua;
+import pong.Pong;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -26,27 +28,33 @@ public class RankingUI extends JFrame {
 	private JTable table;
 	private JTextField textField;
 
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RankingUI frame = new RankingUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-	
+
 	public RankingUI(MyTableModel a){
 		super("Ranking");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JTable table = new JTable(a);
+		JPanel panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
-     	setContentPane(scrollPane);
+     	setContentPane(panel);
+     	panel.setLayout(new BorderLayout(0, 0));
+     	
+     	panel.add(scrollPane, BorderLayout.NORTH);
+     	
+     	String texto1 = Textua.getT().textuaLortu("btnReturn");
+     	
+     	JButton btnReturn = new JButton(texto1);
+     	btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainUI mi = new MainUI();
+				mi.setVisible(true);
+				dispose();
+			}
+		});
+     	
+     	panel.add(btnReturn, BorderLayout.SOUTH);
+     	
 	    	pack();
 	    	setVisible(true);
 	}
 }
+

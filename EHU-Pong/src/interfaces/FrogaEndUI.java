@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import db.helper.DBKud;
 import info.helper.MatchInfo;
+import languages.Textua;
 
 import java.sql.*;
 
@@ -63,34 +64,40 @@ public class FrogaEndUI extends JFrame {
 		
 		lblI = new JLabel(irudiaIcon);
 		lblI.setBackground(Color.WHITE);
-		lblI.setBounds(139, 5, 114, 101);
+		lblI.setBounds(71, 5, 268, 130);
 		
 		panel.add(lblI);
 		
-		JButton btnReturn = new JButton("Return");
+
+     	String texto1 = Textua.getT().textuaLortu("btnReturn");
+     	String texto2 = Textua.getT().textuaLortu("btnSubmit");
+     	
+     	JButton btnReturn = new JButton(texto1);
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
 				Pong.getInstance().resetPong();
+				MainUI mi = new MainUI();
+				mi.setVisible(true);
 				dispose();
 			}
 		});
-		btnReturn.setBounds(164, 187, 89, 23);
+		btnReturn.setBounds(135, 187, 145, 23);
 		panel.add(btnReturn);
 		
-		textField = new JTextField("");
+		textField = new JTextField(" ");
 		textField.setBounds(148, 146, 120, 30);
 		panel.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnSubmit = new JButton("Submit");
+		JButton btnSubmit = new JButton(texto2);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String userName = textField.getText();
 				
-				if(userName!=null) {
+				if(userName!=" ") {
 					String winner = "AI";
 					if(w1) {
 						winner = userName;
@@ -100,6 +107,8 @@ public class FrogaEndUI extends JFrame {
 					new DBKud().insertMatchInfo(matchInfo);
 					
 					Pong.getInstance().resetPong();
+					MainUI mi = new MainUI();
+					mi.setVisible(true);
 					dispose();
 				}
 				

@@ -12,9 +12,6 @@ public class main {
 	
 	public static void main(String[] args){
 
-		
-		
-		
 		System.out.println("Main ");
 		
 		Pong pong = Pong.getInstance(1,2);
