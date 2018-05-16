@@ -19,6 +19,11 @@ public class MatchInfo {
 		this.time = time;
 	}
 	
+	public void setParams(String name, String win) {
+		playerName = name;
+		winner = win;
+	}
+	
 	public String toQuery() {
 		
 		return "( 0,'" + playerName + "', '" + result + "', '" + winner + "', '" + time +"');";

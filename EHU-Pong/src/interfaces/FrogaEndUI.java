@@ -14,6 +14,9 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import db.helper.DBKud;
+import info.helper.MatchInfo;
+
 import java.sql.*;
 
 public class FrogaEndUI extends JFrame {
@@ -21,29 +24,13 @@ public class FrogaEndUI extends JFrame {
 	private JPanel contentPane;
 
 	JLabel lblI;
-	double miliTime;
-	
+	MatchInfo matchInfo;
+	boolean bot;
+	boolean w1;
 	private JTextField textField;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrogaEndUI frame = new FrogaEndUI(true, 0D);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public FrogaEndUI(boolean win, double pMiliTime) {
+	
+	
+	public FrogaEndUI(boolean win, MatchInfo mI , boolean pBot) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -57,7 +44,9 @@ public class FrogaEndUI extends JFrame {
 		
 		panel.setLayout(null);
 		
-		miliTime=pMiliTime;
+		matchInfo = mI;
+		bot = pBot;
+		w1 = win;
 		
 		URL path = getClass().getClassLoader().getResource("momoGif.gif");
 
@@ -78,30 +67,53 @@ public class FrogaEndUI extends JFrame {
 		
 		panel.add(lblI);
 		
-		JButton btnReturn = new JButton("New button");
+		JButton btnReturn = new JButton("Return");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				System.out.println("MiliTime: " + miliTime);
-				long mTime = (long)  miliTime;
-				int second =(int) (mTime/ 1000) % 60;
-				int minute =(int) (mTime / (1000 * 60)) % 60;
-				int hour =(int) (mTime/ (1000 * 60 * 60)) % 24;
-				System.out.println("MiliTimeLong: " + mTime);
-				Time time = new Time(hour,minute,second);
-				System.out.println("Time: " + time);
 				
 				Pong.getInstance().resetPong();
-				
+				dispose();
 			}
 		});
 		btnReturn.setBounds(164, 187, 89, 23);
 		panel.add(btnReturn);
 		
-		textField = new JTextField();
+		textField = new JTextField("");
 		textField.setBounds(148, 146, 120, 30);
 		panel.add(textField);
 		textField.setColumns(10);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String userName = textField.getText();
+				
+				if(userName!=null) {
+					String winner = "AI";
+					if(w1) {
+						winner = userName;
+					}
+					
+					matchInfo.setParams(userName, winner);
+					new DBKud().insertMatchInfo(matchInfo);
+					
+					Pong.getInstance().resetPong();
+					dispose();
+				}
+				
+				
+			}
+		});
+		btnSubmit.setBounds(164,187,89,23);
+		panel.add(btnSubmit);
+		
+
+		
+		btnReturn.setVisible(!bot);
+		textField.setVisible(bot);
+		btnSubmit.setVisible(bot);
 		
 	}
 }

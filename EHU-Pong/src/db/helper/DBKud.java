@@ -1,4 +1,4 @@
-package db.hepler;
+package db.helper;
 
 
 import java.sql.*;
@@ -50,9 +50,9 @@ public class DBKud {
 		
 	}
 	
-	public ArrayList<MatchInfo> getRanking (int rankLength){
+	public Vector<RankingInfo> getRanking (int rankLength){
 		
-		ArrayList<MatchInfo> result = new ArrayList<MatchInfo>();
+		Vector<RankingInfo> result = new Vector<RankingInfo>();
 		
 		try {
 			Statement st = conn.createStatement();
@@ -68,9 +68,9 @@ public class DBKud {
 				String winner = rs.getString(4);
 				Time time = rs.getTime(5);
 				
-				MatchInfo mi = new MatchInfo(matchId, playerName, mResult, winner, time);
+				RankingInfo ri = new RankingInfo(playerName, mResult, winner, time);
 				
-				result.add(mi);
+				result.add(ri);
 				
 			}
 			
@@ -83,6 +83,4 @@ public class DBKud {
 		return result;
 		
 	}
-	
-	
 }

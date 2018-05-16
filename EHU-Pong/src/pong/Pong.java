@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Time;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -152,9 +153,8 @@ public class Pong implements ActionListener, KeyListener{
 			
 			stopClock();
 			
-			double miliTime = sw.getElapsedTime();
-			FrogaEndUI fe = new FrogaEndUI(true, miliTime);
-			fe.setVisible(true);
+			end();
+
 		}
 
 		if (pala2.score >= scoreLimit){
@@ -164,9 +164,7 @@ public class Pong implements ActionListener, KeyListener{
 			
 			stopClock();
 			
-			double miliTime = sw.getElapsedTime();
-			FrogaEndUI fe = new FrogaEndUI(false, miliTime);
-			fe.setVisible(true);
+			end();
 		}
 
 		if (w) {
@@ -210,6 +208,29 @@ public class Pong implements ActionListener, KeyListener{
 			}
 		}
 		ball.update(pala1, pala2);
+	}
+	
+	private void end() {
+		
+		System.out.println("Ending");
+		
+		boolean p1Won= palaWon==1;
+		
+		long miliTime = (long) sw.getElapsedTime();
+		
+		long mTime = (long)  miliTime;
+		int second =(int) (mTime/ 1000) % 60;
+		int minute =(int) (mTime / (1000 * 60)) % 60;
+		int hour =(int) (mTime/ (1000 * 60 * 60)) % 24;
+		System.out.println("MiliTimeLong: " + mTime);
+		Time time = new Time(hour,minute,second);
+									//ID , PlayerName, Result, Winner, Time
+		
+		MatchInfo mi = new MatchInfo(0,""," " + pala1.score + " - " + pala2.score + " ","", time);
+		
+		FrogaEndUI fe = new FrogaEndUI(p1Won, mi, bot);
+		fe.setVisible(true);
+		
 	}
 	
 	public void render(Graphics2D g){

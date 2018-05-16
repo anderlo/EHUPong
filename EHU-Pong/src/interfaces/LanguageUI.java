@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import languages.Textua;
 import languages.language;
@@ -27,7 +28,7 @@ public class LanguageUI extends JFrame {
 	private JPanel panel;
 
 	public LanguageUI() {
-		setBounds(800, 400, 440, 150);
+		setBounds(100, 100, 1200, 520);
 		setResizable(false);
 		this.languageUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,22 +42,23 @@ public class LanguageUI extends JFrame {
 		
 
 		panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
 		JLabel lblSelectLanguage = new JLabel("Selecciona idioma");
-		lblSelectLanguage.setBounds(21, 11, 136, 14);
+		lblSelectLanguage.setBounds(200, 150, 200, 50);
 		panel.add(lblSelectLanguage);
 
 		JLabel label = new JLabel("Hautatu hizkuntza");
-		label.setBounds(167, 11, 153, 14);
+		label.setBounds(550, 150, 200, 50);
 		panel.add(label);
 
 		JLabel label2 = new JLabel("Select language");
-		label2.setBounds(330, 11, 104, 14);
+		label2.setBounds(900, 150, 200, 50);
 		panel.add(label2);
 
-		JButton ESP = new JButton("bt1");
+		JButton ESP = new JButton();
 		ESP.setIcon(Icon);
 		ESP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,10 +67,10 @@ public class LanguageUI extends JFrame {
 				dispose();
 			}
 		});
-		ESP.setBounds(21, 36, 81, 74);
+		ESP.setBounds(150,300,200, 100);
 		panel.add(ESP);
 
-		JButton EUS = new JButton("bt2");
+		JButton EUS = new JButton();
 		EUS.setIcon(Icon2);
 		EUS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,10 +79,10 @@ public class LanguageUI extends JFrame {
 				dispose();
 			}
 		});
-		EUS.setBounds(167, 36, 81, 74);
+		EUS.setBounds(500, 300, 200, 100);
 		panel.add(EUS);
 
-		JButton ENG = new JButton("bt3");
+		JButton ENG = new JButton();
 		ENG.setIcon(Icon3);
 		ENG.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,7 +91,7 @@ public class LanguageUI extends JFrame {
 				dispose();
 			}
 		});
-		ENG.setBounds(330, 36, 81, 74);
+		ENG.setBounds(850, 300, 200, 100);
 		panel.add(ENG);
 
 		setVisible(true);
