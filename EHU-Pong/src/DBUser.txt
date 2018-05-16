@@ -1,0 +1,3 @@
+Create user ehupongadm identified by ehupongadm;
+
+Grant Select, Insert on ehupong.* to ehupongadm;
