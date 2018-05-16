@@ -7,7 +7,7 @@ public class Pala{
 
 	public int palaZnbk;
 
-	public int x, y, width = 50, height = 250;
+	public int x, y, width = 25, height = 250;
 
 	public int score;
 

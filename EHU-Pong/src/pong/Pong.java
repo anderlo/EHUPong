@@ -14,7 +14,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import interfaces.FrogaEnd;
+import interfaces.FrogaEndUI;
 
 public class Pong implements ActionListener, KeyListener{
 
@@ -46,6 +46,7 @@ public class Pong implements ActionListener, KeyListener{
 		setDifficulty(dif);
 		System.out.println("Entered Pong Constructor");
 		Timer timer = new Timer(20, this);
+		Timer timer2 = new Timer(20000, ObstacleManager.getInstance());
 
 		System.out.println("Before JFrame Creation");
 		
@@ -66,6 +67,7 @@ public class Pong implements ActionListener, KeyListener{
 		//start();
 		
 		timer.start();
+		timer2.start();
 		System.out.println("After Timer Start");
 	}
 	
@@ -119,7 +121,7 @@ public class Pong implements ActionListener, KeyListener{
 			palaWon = 1;
 			gameStatus = 2;
 			System.out.println(" 1 won");
-			FrogaEnd fe = new FrogaEnd(true);
+			FrogaEndUI fe = new FrogaEndUI(true);
 			fe.setVisible(true);
 		}
 
@@ -127,7 +129,7 @@ public class Pong implements ActionListener, KeyListener{
 			gameStatus = 2;
 			palaWon = 2;
 			System.out.println(" 2 won");
-			FrogaEnd fe = new FrogaEnd(false);
+			FrogaEndUI fe = new FrogaEndUI(false);
 			fe.setVisible(true);
 		}
 
@@ -173,7 +175,7 @@ public class Pong implements ActionListener, KeyListener{
 		}
 		ball.update(pala1, pala2);
 	}
-
+	
 	public void render(Graphics2D g){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width, height);
@@ -242,6 +244,11 @@ public class Pong implements ActionListener, KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e){
 
+	}
+	
+	public void resetPong() {
+		instance=null;
+		jframe.dispose();
 	}
 	
 	

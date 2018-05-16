@@ -12,12 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
+
+import pong.Pong;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextField;
 
-public class FrogaEnd extends JFrame {
+public class FrogaEndUI extends JFrame {
 
 	private JPanel contentPane;
 
@@ -31,7 +34,7 @@ public class FrogaEnd extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrogaEnd frame = new FrogaEnd(true);
+					FrogaEndUI frame = new FrogaEndUI(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +46,7 @@ public class FrogaEnd extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrogaEnd(boolean win) {
+	public FrogaEndUI(boolean win) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,7 +83,7 @@ public class FrogaEnd extends JFrame {
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
+				Pong.getInstance().resetPong();
 				
 			}
 		});

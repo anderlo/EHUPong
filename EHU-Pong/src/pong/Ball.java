@@ -16,14 +16,8 @@ public class Ball{
 
 	public Ball(){
 		pong = Pong.getInstance();
-	
-	}
-		
-	
-	public Ball(Pong pong){
-		this.pong = pong;
 		spawn();
-	}
+	}	
 
 	public void update(Pala paddle1, Pala paddle2){
 
@@ -72,6 +66,8 @@ public class Ball{
 		Random random = new Random();
 		this.x = pong.width / 2 - this.width / 2;
 		this.y = pong.height / 2 - this.height / 2;
+		
+		System.out.println("Ball Coordenates: ( " + x + " , " + y +" )");
 
 		if (random.nextBoolean())	motionY = 1;
 		else 						motionY = -1;
