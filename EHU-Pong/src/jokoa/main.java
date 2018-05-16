@@ -28,7 +28,7 @@ public class main {
 		
 		System.out.println("Main ");
 		
-		Pong pong = Pong.getInstance(1,0);
+		Pong pong = Pong.getInstance(1,-1);
 		
 	}
 	

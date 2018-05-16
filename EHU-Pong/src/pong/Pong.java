@@ -14,7 +14,9 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import interfaces.FrogaEndUI;
+import interfaces.*;
+import info.helper.*;
+
 
 public class Pong implements ActionListener, KeyListener{
 
@@ -39,14 +41,22 @@ public class Pong implements ActionListener, KeyListener{
 
 	public JFrame jframe;
 
+	Timer timer1;
+	Timer timer2;
+	
+	private Stopwatch sw;
+	
 	private static Pong instance;
 	
 	private Pong(int score, int dif){
 		setScore(score);
 		setDifficulty(dif);
 		System.out.println("Entered Pong Constructor");
-		Timer timer = new Timer(20, this);
-		Timer timer2 = new Timer(20000, ObstacleManager.getInstance());
+		
+		sw = new Stopwatch();
+		
+		timer1 = new Timer(20, this);
+		timer2 = new Timer(20000, ObstacleManager.getInstance());
 
 		System.out.println("Before JFrame Creation");
 		
@@ -64,11 +74,29 @@ public class Pong implements ActionListener, KeyListener{
 		jframe.add(renderer);
 		jframe.addKeyListener(this);
 
-		//start();
+		startClock();
 		
-		timer.start();
-		timer2.start();
 		System.out.println("After Timer Start");
+	}
+	
+	private void startClock() {
+		
+		sw.start();
+		timer1.start();
+		timer2.start();
+		
+		System.out.println("----\nClocks Started:\n-----");
+		
+	}
+	
+	private void stopClock() {
+		
+		sw.stop();
+		timer1.stop();
+		timer2.stop();
+		
+		System.out.println("----\nClocks Stopped:\n-----");
+		
 	}
 	
 	public static Pong getInstance() {
@@ -121,7 +149,11 @@ public class Pong implements ActionListener, KeyListener{
 			palaWon = 1;
 			gameStatus = 2;
 			System.out.println(" 1 won");
-			FrogaEndUI fe = new FrogaEndUI(true);
+			
+			stopClock();
+			
+			double miliTime = sw.getElapsedTime();
+			FrogaEndUI fe = new FrogaEndUI(true, miliTime);
 			fe.setVisible(true);
 		}
 
@@ -129,7 +161,11 @@ public class Pong implements ActionListener, KeyListener{
 			gameStatus = 2;
 			palaWon = 2;
 			System.out.println(" 2 won");
-			FrogaEndUI fe = new FrogaEndUI(false);
+			
+			stopClock();
+			
+			double miliTime = sw.getElapsedTime();
+			FrogaEndUI fe = new FrogaEndUI(false, miliTime);
 			fe.setVisible(true);
 		}
 
