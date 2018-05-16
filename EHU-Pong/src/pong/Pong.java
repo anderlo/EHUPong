@@ -119,7 +119,7 @@ public class Pong implements ActionListener, KeyListener{
 			palaWon = 1;
 			gameStatus = 2;
 			System.out.println(" 1 won");
-			FrogaEnd fe = new FrogaEnd();
+			FrogaEnd fe = new FrogaEnd(true);
 			fe.setVisible(true);
 		}
 
@@ -127,7 +127,7 @@ public class Pong implements ActionListener, KeyListener{
 			gameStatus = 2;
 			palaWon = 2;
 			System.out.println(" 2 won");
-			FrogaEnd fe = new FrogaEnd();
+			FrogaEnd fe = new FrogaEnd(false);
 			fe.setVisible(true);
 		}
 

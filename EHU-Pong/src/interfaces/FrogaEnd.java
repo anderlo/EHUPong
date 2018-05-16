@@ -13,13 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JTextField;
 
-public class FrogaEnd extends JFrame  implements ActionListener {
+public class FrogaEnd extends JFrame {
 
 	private JPanel contentPane;
 
 	int i =0;
 	JLabel lblI;
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -27,7 +31,7 @@ public class FrogaEnd extends JFrame  implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrogaEnd frame = new FrogaEnd();
+					FrogaEnd frame = new FrogaEnd(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,9 +43,7 @@ public class FrogaEnd extends JFrame  implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public FrogaEnd() {
-
-		Timer timer = new Timer(1000, this);
+	public FrogaEnd(boolean win) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -55,37 +57,40 @@ public class FrogaEnd extends JFrame  implements ActionListener {
 		
 		panel.setLayout(null);
 		
-		URL path = getClass().getClassLoader().getResource("Thresh_Iddle_Down.gif");
-		System.out.println("Path: "+path); //para comprobaciones
+		URL path = getClass().getClassLoader().getResource("momoGif.gif");
 
-		Image irudia = new ImageIcon(path).getImage();
+		if(!win) {
+			path = getClass().getClassLoader().getResource("ragePandaQuit.gif");
+		}
 		
-		System.out.println("Irudia: " + irudia.toString());
+		Image irudia = new ImageIcon(path).getImage();
 		
 		//ImageIcon irudiaIcon = new ImageIcon(irudia.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
 		
 		ImageIcon irudiaIcon = new ImageIcon(path);
 		
-		System.out.println("Irudia Icon: " + irudiaIcon);
-		
 		
 		lblI = new JLabel(irudiaIcon);
+		lblI.setBackground(Color.WHITE);
 		lblI.setBounds(139, 5, 114, 101);
-		
-		//lblI.setIcon(irudiaIcon);
 		
 		panel.add(lblI);
 		
+		JButton btnReturn = new JButton("New button");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+			}
+		});
+		btnReturn.setBounds(164, 187, 89, 23);
+		panel.add(btnReturn);
 		
-		timer.start();
+		textField = new JTextField();
+		textField.setBounds(148, 146, 120, 30);
+		panel.add(textField);
+		textField.setColumns(10);
 		
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		i++;
-		//lblI.setText(""+i);
-		repaint();
-	}
-
 }
