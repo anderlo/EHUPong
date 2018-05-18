@@ -11,6 +11,7 @@ import db.helper.*;
 import info.helper.RankingInfo;
 import languages.Textua;
 import pong.Pong;
+import table.utils.MyTableModel;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -31,6 +32,7 @@ public class MainUI extends JFrame {
 	public MainUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 520);
+		setLocationRelativeTo(null); //Pantailaren erdian
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -60,7 +62,7 @@ public class MainUI extends JFrame {
 		btnRanking.setBounds(10, 10, 200, 100);
 		panel.add(btnRanking);
 		
-		JButton btnPvp = new JButton(texto2);
+		JButton btnPvp = new JButton(texto2);  //PVP
 		btnPvp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -72,7 +74,7 @@ public class MainUI extends JFrame {
 		btnPvp.setBounds(980, 10, 200, 100);
 		panel.add(btnPvp);
 		
-		JButton btnia1 = new JButton(texto3);
+		JButton btnia1 = new JButton(texto3); //IA Easy
 		btnia1.setBounds(10, 380, 200, 100);
 		btnia1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +85,7 @@ public class MainUI extends JFrame {
 		});
 		panel.add(btnia1);
 		
-		JButton btnia2 = new JButton(texto4);
+		JButton btnia2 = new JButton(texto4);  //IA Hard
 		btnia2.setBounds(980, 380, 200, 100);
 		btnia2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

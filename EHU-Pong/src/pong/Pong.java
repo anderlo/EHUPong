@@ -62,7 +62,8 @@ public class Pong implements ActionListener, KeyListener{
 		System.out.println("Before JFrame Creation");
 		
 		jframe = new JFrame("Pong");
-
+		jframe.setBounds(600,200,0,0);
+		
 		System.out.println("After JFrame Creation. Before Rendered Creation");
 		
 		renderer = new Renderer();
@@ -225,10 +226,10 @@ public class Pong implements ActionListener, KeyListener{
 		System.out.println("MiliTimeLong: " + mTime);
 		Time time = new Time(hour,minute,second);
 									//ID , PlayerName, Result, Winner, Time
-		
+		System.out.println("Time: " + time);
 		MatchInfo mi = new MatchInfo(0,""," " + pala1.score + " - " + pala2.score + " ","", time);
 		
-		FrogaEndUI fe = new FrogaEndUI(p1Won, mi, bot);
+		FrogaEndUI fe = new FrogaEndUI(p1Won, mi, bot, botDifficulty);
 		fe.setVisible(true);
 		
 	}
@@ -310,6 +311,7 @@ public class Pong implements ActionListener, KeyListener{
 	
 	public void resetPong() {
 		instance=null;
+		ObstacleManager.getInstance().reset();
 		jframe.dispose();
 	}
 	

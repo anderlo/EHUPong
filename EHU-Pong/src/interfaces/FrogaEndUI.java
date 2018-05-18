@@ -28,13 +28,16 @@ public class FrogaEndUI extends JFrame {
 	MatchInfo matchInfo;
 	boolean bot;
 	boolean w1;
+	int dif;
 	private JTextField textField;
+	private JLabel lblMsg;
+	private String msg;
 	
-	
-	public FrogaEndUI(boolean win, MatchInfo mI , boolean pBot) {
+	public FrogaEndUI(boolean win, MatchInfo mI , boolean pBot, int pDif) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null); //Pantailaren erdian
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -48,24 +51,16 @@ public class FrogaEndUI extends JFrame {
 		matchInfo = mI;
 		bot = pBot;
 		w1 = win;
+		dif = pDif;
 		
-		URL path = getClass().getClassLoader().getResource("momoGif.gif");
-
-		if(!win) {
-			path = getClass().getClassLoader().getResource("ragePandaQuit.gif");
-		}
+		String gifName = getGifName();
+		ImageIcon irudiaIcon = new ImageIcon(gifName);
 		
-		Image irudia = new ImageIcon(path).getImage();
-		
-		//ImageIcon irudiaIcon = new ImageIcon(irudia.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH));
-		
-		ImageIcon irudiaIcon = new ImageIcon(path);
-		
-		
-		lblI = new JLabel(irudiaIcon);
+		lblI = new JLabel((Icon) null);
+		lblI.setForeground(Color.BLACK);
 		lblI.setBackground(Color.WHITE);
 		lblI.setBounds(71, 5, 268, 130);
-		
+		lblI.setIcon(irudiaIcon);
 		panel.add(lblI);
 		
 
@@ -83,11 +78,11 @@ public class FrogaEndUI extends JFrame {
 				dispose();
 			}
 		});
-		btnReturn.setBounds(135, 187, 145, 23);
+		btnReturn.setBounds(133, 217, 149, 23);
 		panel.add(btnReturn);
 		
 		textField = new JTextField(" ");
-		textField.setBounds(148, 146, 120, 30);
+		textField.setBounds(147, 176, 120, 30);
 		panel.add(textField);
 		textField.setColumns(10);
 		
@@ -115,8 +110,14 @@ public class FrogaEndUI extends JFrame {
 				
 			}
 		});
-		btnSubmit.setBounds(164,187,89,23);
+		btnSubmit.setBounds(133,217,149,23);
 		panel.add(btnSubmit);
+		
+		lblMsg = new JLabel("New label");
+		lblMsg.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMsg.setBounds(81, 140, 258, 35);
+		lblMsg.setText(msg);
+		panel.add(lblMsg);
 		
 
 		
@@ -124,5 +125,51 @@ public class FrogaEndUI extends JFrame {
 		textField.setVisible(bot);
 		btnSubmit.setVisible(bot);
 		
+	}
+	
+	private String getGifName() {
+		
+		String result = "";
+		msg="";
+		if(bot) {
+			if(w1) {
+				if(dif==0) {
+					result = "gifs/momoGif.gif";
+					msg = Textua.getT().textuaLortu("gifFrog");
+					System.out.println(msg);
+				}
+				else {
+					result = "gifs/deadpool.gif";
+					msg = Textua.getT().textuaLortu("gifDP");
+					System.out.println(msg);
+				}
+			}
+			else {
+				if(dif==0) {
+					result = "gifs/tximino.gif";
+					msg = Textua.getT().textuaLortu("gifTximino");
+					System.out.println(msg);
+				}
+				else {
+					result = "gift/cantWin.gif";
+					msg = Textua.getT().textuaLortu("gifCantWin");
+					System.out.println(msg);
+				}
+			}
+		}
+		else {
+			if(w1) {
+				result = "gifs/dealWithIt.gif";
+				msg = Textua.getT().textuaLortu("gifDealWithIt");
+				System.out.println(msg);
+			}
+			else {
+				result = "gifs/ragePandaQuit.gif";
+				msg = Textua.getT().textuaLortu("gifRageQuit");
+				System.out.println(msg);
+			}
+		}
+		
+		return result;
 	}
 }

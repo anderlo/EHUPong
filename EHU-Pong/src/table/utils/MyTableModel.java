@@ -1,4 +1,4 @@
-package db.helper;
+package table.utils;
 
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;

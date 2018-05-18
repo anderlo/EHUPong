@@ -29,6 +29,7 @@ public class LanguageUI extends JFrame {
 
 	public LanguageUI() {
 		setBounds(100, 100, 1200, 520);
+		setLocationRelativeTo(null); //Pantailaren erdian
 		setResizable(false);
 		this.languageUI();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

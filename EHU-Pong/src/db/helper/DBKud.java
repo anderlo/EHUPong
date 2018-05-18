@@ -62,11 +62,12 @@ public class DBKud {
 			
 			while(rs.next()) {
 				
+				//System.out.println("ID: " + rs.getInt(1));
 				String playerName = rs.getString(2);
 				String mResult = rs.getString(3);
 				String winner = rs.getString(4);
 				Time time = rs.getTime(5);
-				
+				System.out.println("Time: " + time);
 				RankingInfo ri = new RankingInfo(playerName, mResult, winner, time);
 				result.add(ri);
 				

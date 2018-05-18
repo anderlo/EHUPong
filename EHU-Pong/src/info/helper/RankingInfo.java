@@ -21,7 +21,8 @@ public class RankingInfo {
 		}else if (i == 2) {
 			return this.winner;
 		}else if (i == 3) {
-			return this.time;
+			//System.out.println("Time: " + time);
+			return time.toString();
 		}else {
 			return null;
 		}
@@ -39,15 +40,8 @@ public class RankingInfo {
 	}
 	public static Class<?> getColumnClass(int col) {
 		
-		switch (col) {
-		case 3:
-			return Time.class;
-		default:
 			return String.class;
-		}
-		
-		
-		
 	}
+	
 }
 

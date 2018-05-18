@@ -65,5 +65,7 @@ public class ObstacleManager implements ActionListener{
 		return obs;
 
 	}
-	
+	public void reset() {
+		instance=null;
+	}
 }

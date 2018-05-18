@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import db.helper.MyTableModel;
 import info.helper.MatchInfo;
 import languages.Textua;
 import pong.Pong;
+import table.utils.MyTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -32,6 +32,8 @@ public class RankingUI extends JFrame {
 	public RankingUI(MyTableModel a){
 		super("Ranking");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(600,250,450,300);		
+		
 		JTable table = new JTable(a);
 		JPanel panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
