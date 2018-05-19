@@ -30,8 +30,6 @@ public class FrogaEndUI extends JFrame {
 	boolean w1;
 	int dif;
 	private JTextField textField;
-	private JLabel lblMsg;
-	private String msg;
 	
 	public FrogaEndUI(boolean win, MatchInfo mI , boolean pBot, int pDif) {
 		
@@ -59,7 +57,7 @@ public class FrogaEndUI extends JFrame {
 		lblI = new JLabel((Icon) null);
 		lblI.setForeground(Color.BLACK);
 		lblI.setBackground(Color.WHITE);
-		lblI.setBounds(71, 5, 268, 130);
+		lblI.setBounds(59, 5, 309, 160);
 		lblI.setIcon(irudiaIcon);
 		panel.add(lblI);
 		
@@ -113,12 +111,6 @@ public class FrogaEndUI extends JFrame {
 		btnSubmit.setBounds(133,217,149,23);
 		panel.add(btnSubmit);
 		
-		lblMsg = new JLabel("New label");
-		lblMsg.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMsg.setBounds(81, 140, 258, 35);
-		lblMsg.setText(msg);
-		panel.add(lblMsg);
-		
 
 		
 		btnReturn.setVisible(!bot);
@@ -130,43 +122,31 @@ public class FrogaEndUI extends JFrame {
 	private String getGifName() {
 		
 		String result = "";
-		msg="";
+		
 		if(bot) {
 			if(w1) {
 				if(dif==0) {
 					result = "gifs/momoGif.gif";
-					msg = Textua.getT().textuaLortu("gifFrog");
-					System.out.println(msg);
 				}
 				else {
 					result = "gifs/deadpool.gif";
-					msg = Textua.getT().textuaLortu("gifDP");
-					System.out.println(msg);
 				}
 			}
 			else {
 				if(dif==0) {
 					result = "gifs/tximino.gif";
-					msg = Textua.getT().textuaLortu("gifTximino");
-					System.out.println(msg);
 				}
 				else {
 					result = "gift/cantWin.gif";
-					msg = Textua.getT().textuaLortu("gifCantWin");
-					System.out.println(msg);
 				}
 			}
 		}
 		else {
 			if(w1) {
 				result = "gifs/dealWithIt.gif";
-				msg = Textua.getT().textuaLortu("gifDealWithIt");
-				System.out.println(msg);
 			}
 			else {
 				result = "gifs/ragePandaQuit.gif";
-				msg = Textua.getT().textuaLortu("gifRageQuit");
-				System.out.println(msg);
 			}
 		}
 		
